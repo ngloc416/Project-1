@@ -23,8 +23,8 @@ public class Main {
 
     public static void print(String[] s) {
 
-        for (int i = 0; i < s.length; i++) {
-            System.out.print(s[i] + " ");
+        for (String item : s) {
+            System.out.print(item + " ");
         }
         System.out.println();
     }
@@ -61,6 +61,15 @@ public class Main {
                 System.out.print("Dạng tiền tố là: ");
                 print(s1);
                 System.out.print("Dạng hậu tố là: ");
+                print(s2);
+            } else if (cviec == 2){
+                
+            } else if (cviec == 3){
+                s1 = trans.postToPre(s);
+                s2 = trans.postToIn(s);
+                System.out.print("Dạng tiền tố là: ");
+                print(s1);
+                System.out.print("Dạng trung tố là: ");
                 print(s2);
             }
 

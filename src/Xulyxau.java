@@ -15,7 +15,7 @@ public class Xulyxau {
     public Xulyxau() {
     }
 
-    public boolean isOperator(char c) {          //xac dinh toan tu
+    public boolean isOperator(char c) {        //xac dinh toan tu
         char operator[] = {'+', '-', '*', '/', '(', ')'};
         Arrays.sort(operator);
         return Arrays.binarySearch(operator, c) > -1;
@@ -28,7 +28,7 @@ public class Xulyxau {
         s = s.replaceAll("\\s+", " ");
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c) && c >= '0' && c <= '9') {
                 s1 = s1 + c;
             } else {
                 s1 = s1 + " " + c + " ";
@@ -38,8 +38,8 @@ public class Xulyxau {
         s1 = s1.replaceAll("\\s+", " ");
         return s1;
     }
-    
-    public int priority(char c) {                //xac dinh do uu tien cua toan tu
+
+    public int priority(char c) {             //xac dinh do uu tien cua toan tu
         return switch (c) {
             case '+', '-' ->
                 1;
