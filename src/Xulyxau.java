@@ -15,16 +15,16 @@ public class Xulyxau {
     public Xulyxau() {
     }
 
-    public boolean isOperator(char c) {
+    public boolean isOperator(char c) {          //xac dinh toan tu
         char operator[] = {'+', '-', '*', '/', '(', ')'};
         Arrays.sort(operator);
         return Arrays.binarySearch(operator, c) > -1;
     }
 
-    public String[] processingString(String s) { //xu ly bieu thuc nhap vao
-        String s1 = "", s2[] = null;
+    public String processingString(String s) { //xu ly xau nhap vao 
+        String s1 = "";
         Xulyxau xulyxau = new Xulyxau();
-        s = s.trim();   //chuan hoa
+        s = s.trim();
         s = s.replaceAll("\\s+", " ");
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -34,13 +34,12 @@ public class Xulyxau {
                 s1 = s1 + " " + c + " ";
             }
         }
-        s1 = s1.trim(); //chuan hoa
+        s1 = s1.trim();
         s1 = s1.replaceAll("\\s+", " ");
-        s2 = s1.split(" "); //tach s1 thanh cac phan tu
-        return s2;
+        return s1;
     }
-
-    public int priority(char c) {
+    
+    public int priority(char c) {                //xac dinh do uu tien cua toan tu
         return switch (c) {
             case '+', '-' ->
                 1;
