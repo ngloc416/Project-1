@@ -15,15 +15,13 @@ public class Trans {
     public Trans() {
     }
 
-    public String[] inToPost(String s) { //chuyen trung to thanh hau to
+    public String[] inToPost(String[] s) { //chuyen trung to thanh hau to
 
         Xulyxau xulyxau = new Xulyxau();
-        String s1 = "", in[] = null, out[] = null;
+        String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        in = s.split(" ");
-
-        for (String item : in) {
+        for (String item : s) {
             char c = item.charAt(0);
             if (!xulyxau.isOperator(c)) {
                 s1 = s1 + " " + item;
@@ -56,21 +54,18 @@ public class Trans {
         return out;
     }
 
-    public String[] inToPre(String s) { //chuyen trung to thanh tien to
+    public String[] inToPre(String[] s) { //chuyen trung to thanh tien to
 
         Xulyxau xulyxau = new Xulyxau();
-        String s1 = "", in[] = null, out[] = null;
+        String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        String str1 = new StringBuffer(s).reverse().toString();
-        in = str1.split(" ");
-
-        for (String item : in) {
-            char c = item.charAt(0);
+        for (int i = s.length - 1; i >= 0; i--) {
+            char c = s[i].charAt(0);
             if (!xulyxau.isOperator(c)) {
-                s1 = s1 + " " + item;
+                s1 = s1 + " " + s[i];
             } else if (c == ')') {
-                S.push(item);
+                S.push(s[i]);
             } else if (c == '(') {
                 char c1;
                 do {
@@ -85,7 +80,7 @@ public class Trans {
                     s1 = s1 + " " + S.peek();
                     S.pop();
                 }
-                S.push(item);
+                S.push(s[i]);
             }
         }
         while (!S.isEmpty()) {
@@ -99,15 +94,13 @@ public class Trans {
         return out;
     }
 
-    public String[] postToPre(String s) { //chuyen hau to thanh tien to
+    public String[] postToPre(String[] s) { //chuyen hau to thanh tien to
 
         Xulyxau xulyxau = new Xulyxau();
-        String s1 = "", in[] = null, out[] = null;
+        String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        in = s.split(" ");
-
-        for (String item : in) {
+        for (String item : s) {
             char c = item.charAt(0);
             if (!xulyxau.isOperator(c)) {
                 S.push(item);
@@ -119,21 +112,23 @@ public class Trans {
                 S.push(item + " " + op2 + " " + op1);
             }
         }
+
         s1 = S.peek();
         S.pop();
+        
+        if (!S.isEmpty()) s1 = null;
+        
         out = s1.split(" ");
         return out;
     }
 
-    public String[] postToIn(String s) { //chuyen hau to thanh trung to
+    public String[] postToIn(String[] s) { //chuyen hau to thanh trung to
 
         Xulyxau xulyxau = new Xulyxau();
-        String s1 = "", in[] = null, out[] = null;
+        String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        in = s.split(" ");
-
-        for (String item : in) {
+        for (String item : s) {
             char c = item.charAt(0);
             if (!xulyxau.isOperator(c)) {
                 S.push(item);
@@ -147,6 +142,65 @@ public class Trans {
         }
         s1 = S.peek();
         S.pop();
+        
+        if (!S.isEmpty()) s1 = null;
+        
+        out = s1.split(" ");
+        return out;
+    }
+
+    public String[] preToIn(String[] s) { //chuyen tien to thanh trung to
+
+        Xulyxau xulyxau = new Xulyxau();
+        String s1 = "", in[] = null, out[] = null;
+        Stack<String> S = new Stack<>();
+
+        for (int i = s.length - 1; i >= 0; i--) {
+            char c = s[i].charAt(0);
+            if (!xulyxau.isOperator(c)) {
+                S.push(s[i]);
+            } else {
+                String op1 = S.peek();
+                S.pop();
+                String op2 = S.peek();
+                S.pop();
+                S.push("(" + op1 + " " + s[i] + " " + op2 + ")");
+            }
+        }
+
+        s1 = S.peek();
+        S.pop();
+        
+        if (!S.isEmpty()) s1 = null;
+        
+        out = s1.split(" ");
+        return out;
+    }
+
+    public String[] preToPost(String[] s) { //chuyen tien to thanh hau to
+
+        Xulyxau xulyxau = new Xulyxau();
+        String s1 = "", in[] = null, out[] = null;
+        Stack<String> S = new Stack<>();
+
+        for (int i = s.length - 1; i >= 0; i--) {
+            char c = s[i].charAt(0);
+            if (!xulyxau.isOperator(c)) {
+                S.push(s[i]);
+            } else {
+                String op1 = S.peek();
+                S.pop();
+                String op2 = S.peek();
+                S.pop();
+                S.push(op1 + " " + op2 + " " + s[i]);
+            }
+        }
+
+        s1 = S.peek();
+        S.pop();
+        
+        if (!S.isEmpty()) s1 = null;
+        
         out = s1.split(" ");
         return out;
     }
