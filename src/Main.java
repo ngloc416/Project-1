@@ -33,21 +33,20 @@ public class Main {
 
         Xulyxau xulyxau = new Xulyxau();
         Trans trans = new Trans();
-        Scanner sc_int = new Scanner(System.in);
         Scanner sc_str = new Scanner(System.in);
         String s, s1[] = null, s2[] = null;
-        int cviec = 0;
+        String cviec = "0";
 
-        while (cviec != 5 && cviec != 7) {
+        while (cviec.charAt(0) != '5' && cviec.charAt(0) != '7') {
 
             menu();
-            cviec = sc_int.nextInt();
-            while ((cviec < 1) || (cviec > 5)) {
+            cviec = sc_str.nextLine();
+            while (("".equals(cviec)) || (cviec.length() > 1) || (cviec.charAt(0) < '1') || (cviec.charAt(0) > '5')) {
                 System.out.println("___Nhập các giá trị từ 1 - 5: ");
-                cviec = sc_int.nextInt();
+                cviec = sc_str.nextLine();
             }
 
-            if (cviec == 5) {
+            if (cviec.charAt(0) == '5') {
                 return;
             }
 
@@ -55,16 +54,16 @@ public class Main {
             s = sc_str.nextLine();
             s = xulyxau.processingString(s);
 
-            if (cviec == 1) {
+            if (cviec.charAt(0) == '1') {
                 s1 = trans.inToPre(s);
                 s2 = trans.inToPost(s);
                 System.out.print("Dạng tiền tố là: ");
                 print(s1);
                 System.out.print("Dạng hậu tố là: ");
                 print(s2);
-            } else if (cviec == 2){
-                
-            } else if (cviec == 3){
+            } else if (cviec.charAt(0) == '2') {
+
+            } else if (cviec.charAt(0) == '3') {
                 s1 = trans.postToPre(s);
                 s2 = trans.postToIn(s);
                 System.out.print("Dạng tiền tố là: ");
@@ -74,10 +73,10 @@ public class Main {
             }
 
             System.out.println("___Bạn có muốn tiếp tục sử dụng chương trình không? 6: Yes    7: No");
-            cviec = sc_int.nextInt();
-            while (cviec != 6 && cviec != 7) {
+            cviec = sc_str.nextLine();
+            while (("".equals(cviec)) || cviec.length() > 1 || cviec.charAt(0) != '6' && cviec.charAt(0) != '7') {
                 System.out.println("___Nhập các giá trị 6 hoặc 7: ");
-                cviec = sc_int.nextInt();
+                cviec = sc_str.nextLine();
             }
         }
     }
