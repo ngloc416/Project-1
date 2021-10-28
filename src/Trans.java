@@ -15,96 +15,96 @@ public class Trans {
     public Trans() {
     }
 
-    public String[] inToPost(String[] s) { //chuyen trung to thanh hau to
+    public String[] inToPost(String[] s) { 
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        for (String item : s) {
+        for (String item : s) {             //xet theo thu tu tu dau xuong cuoi
             char c = item.charAt(0);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c)) {   //neu la toan hang thi cho vao xau
                 s1 = s1 + " " + item;
-            } else if (c == '(') {
+            } else if (c == '(') {          //neu la ( thi cho vao stack
                 S.push(item);
-            } else if (c == ')') {
+            } else if (c == ')') {          //neu la ) thi dua cac phan tu trong stack ra xau den khi gap (
                 char c1;
-                do {
-                    c1 = S.peek().charAt(0);
+                do {                        
+                    c1 = S.peek().charAt(0);        
                     if (c1 != '(') {
                         s1 = s1 + " " + S.peek();
                     }
                     S.pop();
                 } while (c1 != '(');
-            } else {
+            } else {                        //neu la toan tu 
                 while (!S.isEmpty() && xulyxau.priority(S.peek().charAt(0)) >= xulyxau.priority(c)) {
-                    s1 = s1 + " " + S.peek();
+                    s1 = s1 + " " + S.peek(); //neu toan tu trong stack co do uu tien >= toan tu dang xet thi dua ra xau
                     S.pop();
                 }
-                S.push(item);
+                S.push(item);                 //dua toan tu dang xet vao stack
             }
         }
 
-        while (!S.isEmpty()) {
+        while (!S.isEmpty()) {                //neu stack con phan tu thi dua het ra xau
             s1 = s1 + " " + S.peek();
             S.pop();
         }
         s1 = s1.trim();
         out = s1.split(" ");
         return out;
-    }
+    }   //chuyen trung to thanh hau to
 
-    public String[] inToPre(String[] s) { //chuyen trung to thanh tien to
+    public String[] inToPre(String[] s) { 
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        for (int i = s.length - 1; i >= 0; i--) {
+        for (int i = s.length - 1; i >= 0; i--) {   //xet theo thu tu tu cuoi len dau
             char c = s[i].charAt(0);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c)) {           //neu la toan hang thi dua ra xau
                 s1 = s1 + " " + s[i];
-            } else if (c == ')') {
+            } else if (c == ')') {                  //neu la ) thi cho vao stack
                 S.push(s[i]);
-            } else if (c == '(') {
+            } else if (c == '(') {                  //neu la ( thi dua cac ptu trong stack ra xau den khi gap )
                 char c1;
-                do {
+                do {                                
                     c1 = S.peek().charAt(0);
                     if (c1 != ')') {
                         s1 = s1 + " " + S.peek();
                     }
                     S.pop();
                 } while (c1 != ')');
-            } else {
+            } else {                                //neu la toan tu
                 while (!S.isEmpty() && xulyxau.priority(S.peek().charAt(0)) > xulyxau.priority(c)) {
-                    s1 = s1 + " " + S.peek();
+                    s1 = s1 + " " + S.peek();       //neu toan tu o dau stack co do uu tien > toan tu dang xet thi dua ra xau
                     S.pop();
                 }
-                S.push(s[i]);
+                S.push(s[i]);                       //dua toan tu dang xet vao stack
             }
         }
-        while (!S.isEmpty()) {
+        while (!S.isEmpty()) {                      //neu stack != rong thi dua het cac ptu ra xau
             s1 = s1 + " " + S.peek();
             S.pop();
         }
 
         s1 = s1.trim();
-        String str2 = new StringBuffer(s1).reverse().toString();
+        String str2 = new StringBuffer(s1).reverse().toString();        //dao nguoc lai xau nhan duoc
         out = str2.split(" ");
         return out;
-    }
+    }  //chuyen trung to thanh tien to
 
-    public String[] postToPre(String[] s) { //chuyen hau to thanh tien to
+    public String[] postToPre(String[] s) { 
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        for (String item : s) {
+        for (String item : s) {             //xet theo thu tu tu dau xuong cuoi
             char c = item.charAt(0);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c)) {   //neu la toan hang thi dua vao stack
                 S.push(item);
-            } else {
+            } else {                        //neu la toan tu thi lay 2 ptu o dau stack cho vao xau theo thu tu toan tu + op2 + op1 
                 String op1 = S.peek();
                 S.pop();
                 String op2 = S.peek();
@@ -116,23 +116,23 @@ public class Trans {
         s1 = S.peek();
         S.pop();
         
-        if (!S.isEmpty()) s1 = null;
+        if (!S.isEmpty()) s1 = null;        //neu stack != rong thi bieu thuc sai
         
         out = s1.split(" ");
         return out;
-    }
+    }   //chuyen hau to thanh tien to
 
-    public String[] postToIn(String[] s) { //chuyen hau to thanh trung to
+    public String[] postToIn(String[] s) { 
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        for (String item : s) {
+        for (String item : s) {             //xet theo thu tu tu dau xuong cuoi
             char c = item.charAt(0);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c)) {   //neu la toan hang thi dua vao stack
                 S.push(item);
-            } else {
+            } else {            //neu la toan tu thi dua 2 ptu o dau stack ra xau theo thu tu op2 + toan tu + op1
                 String op1 = S.peek();
                 S.pop();
                 String op2 = S.peek();
@@ -143,23 +143,23 @@ public class Trans {
         s1 = S.peek();
         S.pop();
         
-        if (!S.isEmpty()) s1 = null;
+        if (!S.isEmpty()) s1 = null;        //neu stack != thi bieu thuc sai
         
         out = s1.split(" ");
         return out;
-    }
+    }   //chuyen hau to thanh trung to
 
-    public String[] preToIn(String[] s) { //chuyen tien to thanh trung to
+    public String[] preToIn(String[] s) { 
 
         Xulyxau xulyxau = new Xulyxau();
-        String s1 = "", in[] = null, out[] = null;
+        String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        for (int i = s.length - 1; i >= 0; i--) {
+        for (int i = s.length - 1; i >= 0; i--) {   //xet theo thu tu tu cuoi len dau
             char c = s[i].charAt(0);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c)) {           //neu la toan hang thi dua vao stack
                 S.push(s[i]);
-            } else {
+            } else {        //neu la toan tu thi dua 2 ptu o dau stack vao xau theo thu tu op1 + toan tu + op2
                 String op1 = S.peek();
                 S.pop();
                 String op2 = S.peek();
@@ -171,23 +171,23 @@ public class Trans {
         s1 = S.peek();
         S.pop();
         
-        if (!S.isEmpty()) s1 = null;
+        if (!S.isEmpty()) s1 = null;        //neu stack != rong thi bieu thuc sai
         
         out = s1.split(" ");
         return out;
-    }
+    }   //chuyen tien to thanh trung to
 
-    public String[] preToPost(String[] s) { //chuyen tien to thanh hau to
+    public String[] preToPost(String[] s) { 
 
         Xulyxau xulyxau = new Xulyxau();
-        String s1 = "", in[] = null, out[] = null;
+        String s1 = "", out[] = null;
         Stack<String> S = new Stack<>();
 
-        for (int i = s.length - 1; i >= 0; i--) {
+        for (int i = s.length - 1; i >= 0; i--) {   //xet theo thu tu tu cuoi len dau
             char c = s[i].charAt(0);
-            if (!xulyxau.isOperator(c)) {
+            if (!xulyxau.isOperator(c)) {           //neu la toan hang thi dua vao stack
                 S.push(s[i]);
-            } else {
+            } else {    //neu la toan tu thi dua 2 ptu o dau stack ra xau theo thu tu op1+op2+toan tu
                 String op1 = S.peek();
                 S.pop();
                 String op2 = S.peek();
@@ -199,9 +199,9 @@ public class Trans {
         s1 = S.peek();
         S.pop();
         
-        if (!S.isEmpty()) s1 = null;
+        if (!S.isEmpty()) s1 = null;        //neu stack != rong thi bieu thuc sai
         
         out = s1.split(" ");
         return out;
-    }
+    }   //chuyen tien to thanh hau to
 }

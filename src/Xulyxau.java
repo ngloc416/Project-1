@@ -15,13 +15,13 @@ public class Xulyxau {
     public Xulyxau() {
     }
 
-    public boolean isOperator(char c) {        //xac dinh toan tu
+    public boolean isOperator(char c) {        
         char operator[] = {'+', '-', '*', '/', '(', ')'};
         Arrays.sort(operator);
         return Arrays.binarySearch(operator, c) > -1;
-    }
+    } //xac dinh toan tu
 
-    public int priority(char c) {             //xac dinh do uu tien cua toan tu
+    public int priority(char c) {             
         return switch (c) {
             case '+', '-' ->
                 1;
@@ -30,18 +30,18 @@ public class Xulyxau {
             default ->
                 0;
         };
-    }
+    }       //xac dinh do uu tien cua toan tu
 
-    public String[] processingString(String s) { //xu ly xau nhap vao va tao chuoi xau
+    public String[] processingString(String s) { 
         String s1 = "", s2[] = null;
         Xulyxau xulyxau = new Xulyxau();
-        s = s.trim();
-        s = s.replaceAll("\\s+", " ");
+        s = s.trim();                   //bo dau cach thua o hai dau
+        s = s.replaceAll("\\s+", " ");  //xoa dau cach thua o canh nhau
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (!xulyxau.isOperator(c) && c >= '0' && c <= '9') {
+            if (!xulyxau.isOperator(c) && c >= '0' && c <= '9') { //tach cac so
                 s1 = s1 + c;
-            } else {
+            } else {                        //tach cac toan tu va bien
                 s1 = s1 + " " + c + " ";
             }
         }
@@ -49,16 +49,19 @@ public class Xulyxau {
         s1 = s1.replaceAll("\\s+", " ");
         s2 = s1.split(" ");
         return s2;
-    }
+    }   //xu ly xau nhap vao va tao chuoi xau
 
-    public boolean checkInfix(String[] s) {            // kiem tra cu phap bieu thuc trung to
+    public boolean checkInfix(String[] s) {            
+        if (isOperator(s[0].charAt(0)) && s[0].charAt(0) != '(') {  //dau chuoi la toan tu khac (
+            return false;  
+        }
+        if (isOperator(s[s.length - 1].charAt(0)) && s[s.length - 1].charAt(0) != ')') { //cuoi chuoi la toan tu khac )
+            return false;
+        }
 
         for (int i = 0; i <= s.length - 2; i++) {
-            if (!isOperator(s[i].charAt(0)) && !isOperator(s[i + 1].charAt(0))) {
-                return false;                           //hai toan hang ke nhau
-            }
             if (!isOperator(s[i].charAt(0))) {
-                if (s[i].charAt(0) == '(') {            //toan hang ke dau mo ngoac
+                if (!isOperator(s[i + 1].charAt(0)) || s[i + 1].charAt(0) == '(') {   //hai toan hang ke nhau || toan hang ke (
                     return false;
                 }
             } else {
@@ -78,8 +81,8 @@ public class Xulyxau {
                 }
             }
         }
-        int dem = 0;
-        for (int i = 0; i <= s.length - 1; i++) {
+        int dem = 0;                                //kiem tra cac cap ngoac
+        for (int i = 0; i <= s.length - 1; i++) { 
             char c = s[i].charAt(0);
             if (c == '(') {
                 dem = dem + 1;
@@ -91,5 +94,5 @@ public class Xulyxau {
             return false;
         }
         return true;
-    }
+    }       // kiem tra cu phap bieu thuc trung to
 }
