@@ -18,7 +18,7 @@ public class Tinhgiatri {
     Xulyxau xulyxau = new Xulyxau();
     Trans trans = new Trans();
 
-    public int phan_loai(String[] s) {
+    public int phan_loai(String[] s) {  //ktra bthuc la trung to, hau to hay tien to?
         if (xulyxau.isOperator(s[0].charAt(0)) && s[0].charAt(0) != '(') { //xet tien to
             String str[] = null;
             try {
@@ -40,7 +40,7 @@ public class Tinhgiatri {
         } else {
             return 0;                       //tra ve bieu thuc sai
         }
-    }//ktra bthuc la trung to, hau to hay tien to?
+    }
 
     public boolean check(String s) {               //kiem tra bieu thuc so hoc
         for (int i = 0; i < s.length(); i++) {

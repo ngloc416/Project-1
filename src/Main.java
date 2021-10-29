@@ -35,6 +35,7 @@ public class Main {
         Trans trans = new Trans();
         Tinhgiatri tinhgiatri = new Tinhgiatri();
         Scanner sc = new Scanner(System.in);
+        
         String s, str[] = null, s1[] = null, s2[] = null;
         String cviec = "0";
 

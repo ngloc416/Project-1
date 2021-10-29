@@ -15,7 +15,7 @@ public class Trans {
     public Trans() {
     }
 
-    public String[] inToPost(String[] s) { 
+    public String[] inToPost(String[] s) {      //trung to thanh hau to
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
@@ -29,8 +29,8 @@ public class Trans {
                 S.push(item);
             } else if (c == ')') {          //neu la ) thi dua cac phan tu trong stack ra xau den khi gap (
                 char c1;
-                do {                        
-                    c1 = S.peek().charAt(0);        
+                do {
+                    c1 = S.peek().charAt(0);
                     if (c1 != '(') {
                         s1 = s1 + " " + S.peek();
                     }
@@ -52,9 +52,9 @@ public class Trans {
         s1 = s1.trim();
         out = s1.split(" ");
         return out;
-    }   //chuyen trung to thanh hau to
+    }
 
-    public String[] inToPre(String[] s) { 
+    public String[] inToPre(String[] s) {       //trung to thanh tien to
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
@@ -68,7 +68,7 @@ public class Trans {
                 S.push(s[i]);
             } else if (c == '(') {                  //neu la ( thi dua cac ptu trong stack ra xau den khi gap )
                 char c1;
-                do {                                
+                do {
                     c1 = S.peek().charAt(0);
                     if (c1 != ')') {
                         s1 = s1 + " " + S.peek();
@@ -92,9 +92,9 @@ public class Trans {
         String str2 = new StringBuffer(s1).reverse().toString();        //dao nguoc lai xau nhan duoc
         out = str2.split(" ");
         return out;
-    }  //chuyen trung to thanh tien to
+    }
 
-    public String[] postToPre(String[] s) { 
+    public String[] postToPre(String[] s) {         //hau to thanh tien to
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
@@ -115,14 +115,15 @@ public class Trans {
 
         s1 = S.peek();
         S.pop();
-        
-        if (!S.isEmpty()) s1 = null;        //neu stack != rong thi bieu thuc sai
-        
+
+        if (!S.isEmpty()) {
+            s1 = null;        //neu stack != rong thi bieu thuc sai
+        }
         out = s1.split(" ");
         return out;
-    }   //chuyen hau to thanh tien to
+    }
 
-    public String[] postToIn(String[] s) { 
+    public String[] postToIn(String[] s) {      //hau to thanh trung to
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
@@ -142,14 +143,17 @@ public class Trans {
         }
         s1 = S.peek();
         S.pop();
+
+        if (!S.isEmpty()) {
+            s1 = null;        //neu stack != thi bieu thuc sai
+        }
         
-        if (!S.isEmpty()) s1 = null;        //neu stack != thi bieu thuc sai
-        
+        s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
         out = s1.split(" ");
         return out;
-    }   //chuyen hau to thanh trung to
+    }
 
-    public String[] preToIn(String[] s) { 
+    public String[] preToIn(String[] s) {       //tien to thanh trung to
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
@@ -170,14 +174,17 @@ public class Trans {
 
         s1 = S.peek();
         S.pop();
+
+        if (!S.isEmpty()) {
+            s1 = null;        //neu stack != rong thi bieu thuc sai
+        }
         
-        if (!S.isEmpty()) s1 = null;        //neu stack != rong thi bieu thuc sai
-        
+        s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
         out = s1.split(" ");
         return out;
-    }   //chuyen tien to thanh trung to
+    }
 
-    public String[] preToPost(String[] s) { 
+    public String[] preToPost(String[] s) {         //tien to thanh hau to
 
         Xulyxau xulyxau = new Xulyxau();
         String s1 = "", out[] = null;
@@ -198,10 +205,11 @@ public class Trans {
 
         s1 = S.peek();
         S.pop();
-        
-        if (!S.isEmpty()) s1 = null;        //neu stack != rong thi bieu thuc sai
-        
+
+        if (!S.isEmpty()) {
+            s1 = null;        //neu stack != rong thi bieu thuc sai
+        }
         out = s1.split(" ");
         return out;
-    }   //chuyen tien to thanh hau to
+    }
 }

@@ -21,7 +21,7 @@ public class Xulyxau {
         return Arrays.binarySearch(operator, c) > -1;
     } //xac dinh toan tu
 
-    public int priority(char c) {             
+    public int priority(char c) {        //xac dinh do uu tien cua toan tu     
         return switch (c) {
             case '+', '-' ->
                 1;
@@ -30,9 +30,9 @@ public class Xulyxau {
             default ->
                 0;
         };
-    }       //xac dinh do uu tien cua toan tu
+    }       
 
-    public String[] processingString(String s) { 
+    public String[] processingString(String s) {    //xu ly xau nhap vao va tao chuoi xau
         String s1 = "", s2[] = null;
         Xulyxau xulyxau = new Xulyxau();
         s = s.trim();                   //bo dau cach thua o hai dau
@@ -49,9 +49,9 @@ public class Xulyxau {
         s1 = s1.replaceAll("\\s+", " ");
         s2 = s1.split(" ");
         return s2;
-    }   //xu ly xau nhap vao va tao chuoi xau
+    }   
 
-    public boolean checkInfix(String[] s) {            
+    public boolean checkInfix(String[] s) {            // kiem tra cu phap bieu thuc trung to
         if (isOperator(s[0].charAt(0)) && s[0].charAt(0) != '(') {  //dau chuoi la toan tu khac (
             return false;  
         }
@@ -94,5 +94,5 @@ public class Xulyxau {
             return false;
         }
         return true;
-    }       // kiem tra cu phap bieu thuc trung to
+    }       
 }
