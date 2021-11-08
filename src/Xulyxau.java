@@ -15,11 +15,13 @@ public class Xulyxau {
     public Xulyxau() {
     }
 
-    public boolean isOperator(char c) {        
+    Trans trans = new Trans();
+
+    public boolean isOperator(char c) {     //xac dinh toan tu   
         char operator[] = {'+', '-', '*', '/', '(', ')'};
         Arrays.sort(operator);
         return Arrays.binarySearch(operator, c) > -1;
-    } //xac dinh toan tu
+    }
 
     public int priority(char c) {        //xac dinh do uu tien cua toan tu     
         return switch (c) {
@@ -30,7 +32,7 @@ public class Xulyxau {
             default ->
                 0;
         };
-    }       
+    }
 
     public String[] processingString(String s) {    //xu ly xau nhap vao va tao chuoi xau
         String s1 = "", s2[] = null;
@@ -49,9 +51,43 @@ public class Xulyxau {
         s1 = s1.replaceAll("\\s+", " ");
         s2 = s1.split(" ");
         return s2;
-    }   
+    }
 
-    public boolean checkInfix(String[] s) {            // kiem tra cu phap bieu thuc trung to
+    public int phan_loai(String[] s) {  //ktra bthuc la trung to, hau to hay tien to?
+        if (new CheckInfix(s).check()) {  //xet trung to
+            return 2;                       //la bieu thuc trung to
+        } else if (isOperator(s[0].charAt(0))) { //xet tien to
+            try {
+                trans.preToIn(s);
+            } catch (Exception e) {
+                return 0;                   //neu ko chuyen dc thi bieu thuc sai           
+            }
+            return 1;                       //neu chuyen dc thi la bieu thuc tien to
+        } else if (isOperator(s[s.length - 1].charAt(0))) { //xet hau to
+            try {
+                trans.postToIn(s);
+            } catch (Exception e) {
+                return 0;                   //neu ko chuyen dc thi bieu thuc sai           
+            }
+            return 3;                       //neu chuyen dc thi la bieu thuc hau to
+        } else {
+            return 0;                       //tra ve bieu thuc sai
+        }
+    }
+
+    public boolean check(String s) {               //kiem tra bieu thuc so hoc
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (!isOperator(c) && c != ' ') {
+                if ((c < '0') || c > '9') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+//kiểm tra cú pháp bt trung tố cũ
+    /*public boolean checkInfix(String[] s) {            // kiem tra cu phap bieu thuc trung to
         if (isOperator(s[0].charAt(0)) && s[0].charAt(0) != '(') {  //dau chuoi la toan tu khac (
             return false;  
         }
@@ -94,5 +130,5 @@ public class Xulyxau {
             return false;
         }
         return true;
-    }       
+    }  */
 }

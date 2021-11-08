@@ -147,8 +147,10 @@ public class Trans {
         if (!S.isEmpty()) {
             s1 = null;        //neu stack != thi bieu thuc sai
         }
-        
-        s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
+
+        if (s1.length() > 1) {
+            s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
+        }
         out = s1.split(" ");
         return out;
     }
@@ -178,8 +180,10 @@ public class Trans {
         if (!S.isEmpty()) {
             s1 = null;        //neu stack != rong thi bieu thuc sai
         }
-        
-        s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
+
+        if (s1.length() > 1) {
+            s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
+        }
         out = s1.split(" ");
         return out;
     }

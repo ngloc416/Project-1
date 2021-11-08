@@ -28,14 +28,14 @@ public class Main {
         }
         System.out.println();
     }
-   
+
     public static void main(String[] args) {
 
         Xulyxau xulyxau = new Xulyxau();
         Trans trans = new Trans();
-        Tinhgiatri tinhgiatri = new Tinhgiatri();
+        TinhPre_Post tinhPre_Post = new TinhPre_Post();
         Scanner sc = new Scanner(System.in);
-        
+
         String s, str[] = null, s1[] = null, s2[] = null;
         String cviec = "0";
 
@@ -54,7 +54,7 @@ public class Main {
                     System.out.println("~~Nhập biểu thức dạng trung tố: ");
                     s = sc.nextLine();
                     str = xulyxau.processingString(s);
-                    if (xulyxau.checkInfix(str)) {
+                    if (new CheckInfix(str).check()) {
                         s1 = trans.inToPre(str);
                         s2 = trans.inToPost(str);
                         System.out.print("Dạng tiền tố là: ");
@@ -101,20 +101,20 @@ public class Main {
                 case '4' -> {
                     System.out.println("~~Nhập biểu thức số học (chỉ gồm các toán tử và chữ số): ");
                     s = sc.nextLine();
-                    while (!tinhgiatri.check(s)) {
+                    while (!xulyxau.check(s)) {
                         System.out.println("~~Nhập lại (chỉ gồm các toán tử và chữ số): ");
                         s = sc.nextLine();
                     }
                     str = xulyxau.processingString(s);
-                    switch (tinhgiatri.phan_loai(str)) {
+                    switch (xulyxau.phan_loai(str)) {
                         case 0 ->
                             System.out.println("Biểu thức nhập vào sai!");
                         case 1 ->
-                            System.out.println("Giá trị biểu thức là: " + tinhgiatri.tinhTienTo(str));
+                            System.out.println("Giá trị biểu thức là: " + tinhPre_Post.tinhTienTo(str));
                         case 2 ->
-                            System.out.println("Giá trị biểu thức là: " + tinhgiatri.tinhTrungTo(str));
+                            System.out.println("Giá trị biểu thức là: " + new TinhInfix(str).tinh());
                         case 3 ->
-                            System.out.println("Giá trị biểu thức là: " + tinhgiatri.tinhHauTo(str));
+                            System.out.println("Giá trị biểu thức là: " + tinhPre_Post.tinhHauTo(str));
                         default -> {
                         }
                     }
@@ -122,7 +122,7 @@ public class Main {
                 }
                 case '5' -> {
                     return;
-                }                
+                }
             }
             // tiep tuc chuong trinh?
             System.out.println("~~Bạn có muốn tiếp tục sử dụng chương trình không? 6: Yes    7: No");
