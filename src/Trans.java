@@ -89,8 +89,12 @@ public class Trans {
         }
 
         s1 = s1.trim();
-        String str2 = new StringBuffer(s1).reverse().toString();        //dao nguoc lai xau nhan duoc
-        out = str2.split(" ");
+        out = s1.split(" ");
+        for (int i = 0; i <= out.length / 2; i++) {   //dao nguoc lai xau nhan duoc
+            String tmp = out[i];
+            out[i] = out[out.length - i - 1];
+            out[out.length - i - 1] = tmp;
+        }
         return out;
     }
 
@@ -148,7 +152,7 @@ public class Trans {
             s1 = null;        //neu stack != thi bieu thuc sai
         }
 
-        if (s1.length() > 1) {
+        if (s1.charAt(0) == '(') {
             s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
         }
         out = s1.split(" ");
@@ -181,7 +185,7 @@ public class Trans {
             s1 = null;        //neu stack != rong thi bieu thuc sai
         }
 
-        if (s1.length() > 1) {
+        if (s1.charAt(0) == '(') {
             s1 = s1.substring(1, s1.length() - 1);  //bo dau ngoac thua o dau va cuoi xau
         }
         out = s1.split(" ");

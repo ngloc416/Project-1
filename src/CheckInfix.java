@@ -7,7 +7,7 @@
  *
  * @author Loc Nguyen
  */
-public class CheckInfix {   //kiem tra cu phap va tinh bieu thuc trung to
+public class CheckInfix {   //kiem tra cu phap bieu thuc trung to
 
     String token, str[];
     int i = 0;              //chỉ số của phần tử đang xét

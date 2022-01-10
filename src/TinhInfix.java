@@ -9,7 +9,7 @@
  *
  * @author Loc Nguyen
  */
-public class TinhInfix {   //kiem tra cu phap bieu thuc trung to
+public class TinhInfix {   //tinh bieu thuc trung to
 
     String token, str[];
     int i = 0;              //chỉ số của phần tử đang xét
@@ -117,13 +117,13 @@ public class TinhInfix {   //kiem tra cu phap bieu thuc trung to
         double F = compileFactor();
         String t = token;
         double T2 = compileTerm2();
-        if ("SB_TIMES".equals(tokenType(t)) ) {
-            return F * T2;
-        } else if ("SB_SLASH".equals(tokenType(t))){
-            return F/T2;
-        }else {
+        if (null == tokenType(t) ) {
             return F;
-        }
+        } else return switch (tokenType(t)) {
+            case "SB_TIMES" -> F * T2;
+            case "SB_SLASH" -> F/T2;
+            default -> F;
+        };
     }
 
     private double compileTerm2() {
@@ -133,26 +133,26 @@ public class TinhInfix {   //kiem tra cu phap bieu thuc trung to
                 double F = compileFactor();
                 String t = token;
                 double T2 = compileTerm2();
-                if ("SB_TIMES".equals(tokenType(t))) {
-                    return F * T2;
-                } else if ("SB_SLASH".equals(tokenType(t))) {
-                    return F / T2;
-                } else {
+                if (null == tokenType(t)) {
                     return F;
-                }
+                } else return switch (tokenType(t)) {
+                    case "SB_TIMES" -> F * T2;
+                    case "SB_SLASH" -> F / T2;
+                    default -> F;
+                };
             }
             case "SB_SLASH" -> {
                 eat("SB_SLASH");
                 double F = compileFactor();
                 String t = token;
                 double T2 = compileTerm2();
-                if ("SB_TIMES".equals(tokenType(t))) {
-                    return F / T2;
-                } else if ("SB_SLASH".equals(tokenType(t))) {
-                    return (F * T2);
-                } else {
+                if (null == tokenType(t)) {
                     return F;
-                }
+                } else return switch (tokenType(t)) {
+                    case "SB_TIMES" -> F / T2;
+                    case "SB_SLASH" -> F * T2;
+                    default -> F;
+                };
             }
             case "SB_PLUS" -> {
 

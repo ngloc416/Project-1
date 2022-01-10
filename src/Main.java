@@ -54,67 +54,90 @@ public class Main {
                     System.out.println("~~Nhập biểu thức dạng trung tố: ");
                     s = sc.nextLine();
                     str = xulyxau.processingString(s);
-                    if (new CheckInfix(str).check()) {
-                        s1 = trans.inToPre(str);
-                        s2 = trans.inToPost(str);
-                        System.out.print("Dạng tiền tố là: ");
-                        print(s1);
-                        System.out.print("Dạng hậu tố là: ");
-                        print(s2);
-                    } else {
-                        System.out.println("Biểu thức nhập vào sai!");
+                    while (!new CheckInfix(str).check()) {
+                        System.out.println("  Biểu thức nhập vào sai! Vui lòng nhập lại: ");
+                        s = sc.nextLine();
+                        str = xulyxau.processingString(s);
                     }
+
+                    s1 = trans.inToPre(str);
+                    s2 = trans.inToPost(str);
+                    System.out.print("  Dạng tiền tố là: ");
+                    print(s1);
+                    System.out.print("  Dạng hậu tố là: ");
+                    print(s2);
+
                     System.out.println("___________________________________________");
                 }
                 case '2' -> {
                     System.out.println("~~Nhập biểu thức dạng tiền tố: ");
                     s = sc.nextLine();
                     str = xulyxau.processingString(s);
-                    try {
-                        s1 = trans.preToIn(str);
-                        s2 = trans.preToPost(str);
-                        System.out.print("Dạng trung tố là: ");
-                        print(s1);
-                        System.out.print("Dạng hậu tố là: ");
-                        print(s2);
-                    } catch (Exception e) {
-                        System.out.println("Biểu thức nhập vào sai!");
+                    boolean bl = true; //điều kiện để chạy vòng lặp while
+
+                    while (bl) {
+                        try {
+                            s1 = trans.preToIn(str);
+                            s2 = trans.preToPost(str);
+                            System.out.print("  Dạng trung tố là: ");
+                            print(s1);
+                            System.out.print("  Dạng hậu tố là: ");
+                            print(s2);
+                            bl = false;
+                        } catch (Exception e) {
+                            System.out.println("  Biểu thức nhập vào sai! Vui lòng nhập lại: ");
+                            s = sc.nextLine();
+                            str = xulyxau.processingString(s);
+                        }
                     }
+
                     System.out.println("___________________________________________");
                 }
                 case '3' -> {
                     System.out.println("~~Nhập biểu thức dạng hậu tố: ");
                     s = sc.nextLine();
                     str = xulyxau.processingString(s);
-                    try {
-                        s1 = trans.postToPre(str);
-                        s2 = trans.postToIn(str);
-                        System.out.print("Dạng tiền tố là: ");
-                        print(s1);
-                        System.out.print("Dạng trung tố là: ");
-                        print(s2);
-                    } catch (Exception e) {
-                        System.out.println("Biểu thức nhập vào sai!");
+                    boolean bl = true; //điều kiện để chạy vòng lặp while
+
+                    while (bl) {
+                        try {
+                            s1 = trans.postToPre(str);
+                            s2 = trans.postToIn(str);
+                            System.out.print("  Dạng tiền tố là: ");
+                            print(s1);
+                            System.out.print("  Dạng trung tố là: ");
+                            print(s2);
+                            bl = false;
+                        } catch (Exception e) {
+                            System.out.println("  Biểu thức nhập vào sai! Vui lòng nhập lại: ");
+                            s = sc.nextLine();
+                            str = xulyxau.processingString(s);
+                        }
                     }
+
                     System.out.println("___________________________________________");
                 }
                 case '4' -> {
                     System.out.println("~~Nhập biểu thức số học (chỉ gồm các toán tử và chữ số): ");
                     s = sc.nextLine();
-                    while (!xulyxau.check(s)) {
-                        System.out.println("~~Nhập lại (chỉ gồm các toán tử và chữ số): ");
-                        s = sc.nextLine();
-                    }
                     str = xulyxau.processingString(s);
+                    while ((!xulyxau.check(s)) || (xulyxau.phan_loai(str) == 0)) {
+                        if (!xulyxau.check(s)) {
+                            System.out.println("  Nhập lại (chỉ gồm các toán tử và chữ số): ");
+                        } else {
+                            System.out.println("  Biểu thức nhập vào sai! Vui lòng nhập lại: ");
+                        }
+                        s = sc.nextLine();
+                        str = xulyxau.processingString(s);
+                    }
+
                     switch (xulyxau.phan_loai(str)) {
-                        case 0 ->
-                            System.out.println("Biểu thức nhập vào sai!");
                         case 1 ->
-                            System.out.println("Giá trị biểu thức là: " + tinhPre_Post.tinhTienTo(str));
+                            System.out.println("  Giá trị biểu thức là: " + tinhPre_Post.tinhTienTo(str));
                         case 2 ->
-                            System.out.println("Giá trị biểu thức là: " + new TinhInfix(str).tinh());
+                            System.out.println("  Giá trị biểu thức là: " + new TinhInfix(str).tinh());
                         case 3 ->
-                            System.out.println("Giá trị biểu thức là: " + tinhPre_Post.tinhHauTo(str));
+                            System.out.println("  Giá trị biểu thức là: " + tinhPre_Post.tinhHauTo(str));
                         default -> {
                         }
                     }
@@ -128,7 +151,7 @@ public class Main {
             System.out.println("~~Bạn có muốn tiếp tục sử dụng chương trình không? 6: Yes    7: No");
             cviec = sc.nextLine();
             while (("".equals(cviec)) || cviec.length() > 1 || cviec.charAt(0) != '6' && cviec.charAt(0) != '7') {
-                System.out.println("~~Nhập các giá trị 6 hoặc 7: ");
+                System.out.println("  Nhập các giá trị 6 hoặc 7: ");
                 cviec = sc.nextLine();
             }
         }
