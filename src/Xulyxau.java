@@ -100,7 +100,7 @@ public class Xulyxau {
                 if (!isOperator(s[i + 1].charAt(0)) || s[i + 1].charAt(0) == '(') {   //hai toan hang ke nhau || toan hang ke (
                     return false;
                 }
-            } else {
+            } else {    
                 switch (s[i].charAt(0)) {
                     case '+', '-', '*', '/', '(' -> {
                         if (isOperator(s[i + 1].charAt(0)) && s[i + 1].charAt(0) != '(') {
